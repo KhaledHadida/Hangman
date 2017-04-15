@@ -28,12 +28,9 @@ public class Hangman {
         int counter = 1;
         //lives for player
         int lives = 6;
-        //a integer used to count everytime user gets 1 letter correct
-        int correct = 0;
+       
         //checks if game is done
         boolean isFinished = false;
-
-
 
         //asks user to input word
         System.out.println("Enter a word");
@@ -73,18 +70,16 @@ public class Hangman {
             for (int i = 0; i < word.length();) {
                 //stores letter in char
                 char selectedLetter = realWord.charAt(i);
-                
+
                 //if the guess is correct
                 if (selectedLetter == guessedLetter) {
-
 
                     //sets the letter in that position 'i' as the guessed letter.
                     myName.setCharAt(i, guessedLetter);
 
                     //decreases counter
                     counter--;
-                    //increases number of correct letters 
-                    correct++;
+
                 }
 
                 //increases counter
@@ -101,7 +96,7 @@ public class Hangman {
                 //increases i to move on to the next letter in the word.
                 i++;
             }
-            
+
             //for loop used to print out all letters in the hidden word
             for (int i = 0; i < word.length(); i++) {
                 System.out.print(myName.charAt(i) + " ");
@@ -109,13 +104,17 @@ public class Hangman {
             }
             System.out.println("");
 
-            //sets counter back to 1 at the end of every cycle
-            counter = 1;
+            //converts to string 
+            String testingDashes = myName.toString();
 
             //if the player guesses all the right letters, toggle game finished
-            if (correct == word.length()) {
+            if (!testingDashes.contains("-")) {
                 isFinished = true;
+
             }
+
+            //sets counter back to 1 at the end of every cycle
+            counter = 1;
 
         }
 
@@ -126,6 +125,7 @@ public class Hangman {
         } else {
             //otherwise they win
             System.out.println("Congratulations, you've won!");
+
         }
 
     }
