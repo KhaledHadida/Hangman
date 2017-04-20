@@ -17,6 +17,17 @@ public class MatricesCalculator {
      */
     public static void main(String[] args) {
         
+        //procedure to solve any reduced row echelon form
+        
+        // STEP 1: if first number != 1, multiply it by its reciprocal
+        // STEP 2 : Add X times FIRST ROW to the SECOND ROW (X Being multiple of second row's first number that is opposite [+,-]) 
+        
+        
+        
+        
+        
+        
+        
         boolean done = false;
           int temp = 0;
         
@@ -47,40 +58,52 @@ public class MatricesCalculator {
         
         
         //print out answers, in reduced echelon form
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(numbers[counter]);
-                System.out.print(" ");
-                  counter++;
-            }
-            System.out.print(" | ");
+//        for (int i = 0; i < 11; i = i + 3) {
+//            for (int j = 0; j < 3; j++) {
+//                System.out.print(numbers[j]);
+//                System.out.print(" ");
+//                  counter++;
+//            }
+//            System.out.print(" | ");
+//            
+//
+//           
+//                 System.out.print(numbers[i]);          
+//                  counter++;
+//           
+//          
+//            System.out.println("");
+//        }
+        
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.print(numbers[i]);
+            System.out.print(" ");
             
-
-           
-                 System.out.print(numbers[counter]);          
-                  counter++;
-           
-          
-            System.out.println("");
+            if(i == 2 || i == 5 || i == 10){
+                System.out.print(" | ");
+            }
         }
         
         while(!done){
            
             //take care of first coloum 
-            for (int i = 0; i < 9; i =  i+4) {
+            for (int g = 0; g < 9; g = g+4) {
+                 for (int i = 0; i < 9; i =  i+4) {
                
-                 if(numbers[temp] %numbers[i] == 0){
-              System.out.println("well");
+                 if(numbers[g] %numbers[i] == 0){
+            
+               System.out.println("Yes it tacos!");
              
-             
-                     System.out.println("i is " + i + " temp is " + temp );
+                    
               
           }
+               
                 
-                 
-                   
+            
             }
-         
+            }
+           
+         done = true;
             
         }
         //display answer 
@@ -88,14 +111,14 @@ public class MatricesCalculator {
             for (int j = 0; j < 3; j++) {
                 System.out.print(numbers[counter]);
                 System.out.print(" ");
-                  counter++;
+                
             }
             System.out.print(" | ");
             
 
            
                  System.out.print(numbers[counter]);          
-                  counter++;
+                  
            
           
             System.out.println("");
