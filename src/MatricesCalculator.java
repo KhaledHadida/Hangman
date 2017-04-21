@@ -33,7 +33,7 @@ public class MatricesCalculator {
         
         int counter = 0;
         Scanner in = new Scanner(System.in);
-        int[] numbers = new int[12];
+        double[] numbers = new double[12];
         numbers[0] = 2;
         numbers[1] = 6;
         numbers[2] = 7;
@@ -56,74 +56,93 @@ public class MatricesCalculator {
         
         
         
+      
+       
+        //displays answer
+       for (int i = 0; i < 3; i++) {
+             for (int j = 0; j < 3; j++) {
+                 System.out.print(numbers[counter]);
+                 System.out.print(" ");
+                   counter++;
+             }
+             System.out.print(" | ");
+             
+ 
+            
+                  System.out.print(numbers[counter]);          
+                   counter++;
+            
+           
+             System.out.println("");
+        }
+       
+       //reset counter
+       counter= 0;
+      
         
-        //print out answers, in reduced echelon form
-//        for (int i = 0; i < 11; i = i + 3) {
-//            for (int j = 0; j < 3; j++) {
-//                System.out.print(numbers[j]);
-//                System.out.print(" ");
-//                  counter++;
-//            }
-//            System.out.print(" | ");
+//        while(!done){
+//           
+//            //take care of first coloum 
+//            for (int g = 0; g < 9; g = g+4) {
+//                 for (int i = 0; i < 9; i =  i+4) {
+//               
+//                     
+//                     
+//                 if(numbers[g] %numbers[i] == 0){
 //            
-//
+////               System.out.println("Yes it tacos!");
+//             
+//                    
+//              
+//          }
+//               
+//                
+//            
+//            }
+//            }
 //           
-//                 System.out.print(numbers[i]);          
-//                  counter++;
-//           
-//          
-//            System.out.println("");
+//         done = true;
+//            
 //        }
         
-        for (int i = 0; i < numbers.length; i++) {
-            System.out.print(numbers[i]);
-            System.out.print(" ");
-            
-            if(i == 2 || i == 5 || i == 10){
-                System.out.print(" | ");
-            }
-        }
         
-        while(!done){
+        
+        
+  
+        //first step 
+       if(numbers[0] > 1) {
+           multiplier(0,4,numbers);
+       }
+       
+       if(numbers[4] > 1){
            
-            //take care of first coloum 
-            for (int g = 0; g < 9; g = g+4) {
-                 for (int i = 0; i < 9; i =  i+4) {
-               
-                 if(numbers[g] %numbers[i] == 0){
-            
-               System.out.println("Yes it tacos!");
+       }
+        
+        
+        System.out.println("");
+        
+        
+        
+        
+        //display answers
+          for (int i = 0; i < 3; i++) {
+             for (int j = 0; j < 3; j++) {
+                 System.out.print(numbers[counter]);
+                 System.out.print(" ");
+                   counter++;
+             }
+             System.out.print(" | ");
              
-                    
-              
-          }
-               
-                
+ 
             
-            }
-            }
-           
-         done = true;
+                  System.out.print(numbers[counter]);          
+                   counter++;
             
-        }
-        //display answer 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                System.out.print(numbers[counter]);
-                System.out.print(" ");
-                
-            }
-            System.out.print(" | ");
-            
-
            
-                 System.out.print(numbers[counter]);          
-                  
-           
-          
-            System.out.println("");
+             System.out.println("");
         }
         
+
         
         
         //process of conversion to 
@@ -132,6 +151,34 @@ public class MatricesCalculator {
         
         
         
+        
+        
+    }
+    
+    
+    public static void multiplier(int position, int row , double[] numbers){
+
+            
+            double temporary = 1/numbers[0];
+            for (int i = position; i < row; ) {
+                
+               numbers[i] = numbers[i] * temporary;  
+               i++;
+             
+            }
+           
+        
+
+    }
+    
+    
+    public static void Adder(int position, int row){
+        
+        int temp = position;
+        for (int i = 0; i < row; i++) {
+            
+            temp = temp +
+        }
         
         
     }
