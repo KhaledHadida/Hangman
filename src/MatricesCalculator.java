@@ -34,6 +34,7 @@ public class MatricesCalculator {
         int counter = 0;
         Scanner in = new Scanner(System.in);
         double[] numbers = new double[12];
+        double[] numbersToAdd = new double[numbers.length];
         numbers[0] = 2;
         numbers[1] = 6;
         numbers[2] = 7;
@@ -46,6 +47,11 @@ public class MatricesCalculator {
         numbers[9] = 4;
         numbers[10] = 7;
         numbers[11] = 4;
+        
+        //duplicate array
+        for (int i = 0; i < numbers.length; i++) {
+            numbersToAdd[i] =  numbers[i];
+        }
         
         //asks user to input numbers
         System.out.println("Enter your components/coordinates, left to right (including after the |)");
@@ -111,17 +117,30 @@ public class MatricesCalculator {
   
         //first step 
        if(numbers[0] > 1) {
-           multiplier(0,4,numbers);
+           multiplier(0,4,1/numbers[0],numbers);
+            multiplier(0,4, -1.0*numbers[4], numbersToAdd);
+            
+       }else{
+//           multiplier(0,4,numbers);
        }
        
-       if(numbers[4] > 1){
+       if(numbers[4] >= 1){
            
+           
+       }else{
+          
        }
         
+       
+       //adding portion
+       
+       
         
+       
+       
         System.out.println("");
         
-        
+       
         
         
         //display answers
@@ -156,28 +175,30 @@ public class MatricesCalculator {
     }
     
     
-    public static void multiplier(int position, int row , double[] numbers){
+    public static void multiplier(int position, int row ,double multiplier, double[] numbers){
 
             
-            double temporary = 1/numbers[0];
+     
             for (int i = position; i < row; ) {
                 
-               numbers[i] = numbers[i] * temporary;  
+               numbers[i] = numbers[i] * multiplier;  
                i++;
              
             }
+            
+            
            
         
 
     }
     
     
-    public static void Adder(int position, int row){
+    public static void Adder(int position, int row, double[] numbers, double[]  adding){
         
         int temp = position;
         for (int i = 0; i < row; i++) {
             
-            temp = temp +
+            
         }
         
         
