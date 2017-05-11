@@ -26,17 +26,17 @@ public class AthanNotifier {
     
     
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
       
         Document doc = null;
         
-        try{
+    
             //creates a doc, sets a user
             doc = Jsoup.connect("http://www.kitchenermasjid.com/").userAgent("Mozilla/17.0").get();
             
 //            String title = doc.title();
             Element body =  doc.body();
-            
+            Elements links = null;
             
             //Access calender
             Calendar cal = Calendar.getInstance();
@@ -46,20 +46,39 @@ public class AthanNotifier {
             
             String converter  = body.text();
             
-            Elements links = doc.select("td.odd");
+            String[] allLinks = {"td.odd", "td.even","tr.even"};
+           
+            
+           
+           
+                for (int i = 0; i < allLinks.length; i++) {
+              links = doc.select(allLinks[i]);
+                 }
+            
+       
+           
             Elements links2 = doc.select("td.even");
             Elements links3 = doc.select("tr.even");
             
+             
+//            for (Element athan: links) {
+//                System.out.println(athan.getAllElements().text());
+//                
+//                
+//                
+//            }
             
-            for (Element athan: links) {
-                
-            }
             
-            System.out.println(links.text() + " " + links2.text() + " " + links3.text());
+            System.out.println(links2.text());
+            System.out.println(links3.text());
+                     
             
-        }catch(IOException e){
+//            StringBuilder test = new StringBuilder(links.text());
             
-        }
+            
+            
+            
+      
         
        
         
@@ -68,8 +87,18 @@ public class AthanNotifier {
     }
     
     
-    public static int timeConverter(int time){
-        return 0;
+    public static int timeConverter(int time, String pmAm){
+        
+        if(pmAm.equals("PM")){
+            time = 12 + time;
+            
+        }
+        
+        return time;
+        
+        
+        
+        
     }
     
 }
