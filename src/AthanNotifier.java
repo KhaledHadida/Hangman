@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,9 +30,10 @@ public class AthanNotifier {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException, ParseException {
+    public static void main(String[] args) throws IOException, ParseException, InterruptedException {
 
         Document doc = null;
+        AthanNotifier run = new AthanNotifier();
 
         //creates a doc, sets a user
         doc = Jsoup.connect("http://www.kitchenermasjid.com/").userAgent("Mozilla/17.0").get();
@@ -40,9 +42,9 @@ public class AthanNotifier {
         Element body = doc.body();
         Elements links = null;
         String deal = null;
-        
 
-        
+        int marker = 0;
+
         //Access calender
         Calendar cal = Calendar.getInstance();
         //sets format (Hours, minutes, seconds)
@@ -53,9 +55,10 @@ public class AthanNotifier {
 
         String converter = body.text();
         ArrayList<String> times = new ArrayList<String>();
+        ArrayList<String> realTimes = new ArrayList<String>();
         ArrayList<Integer> closestTime = new ArrayList<Integer>();
         String[] allLinks = {"td.odd", "td.even", "tr.even"};
-//            String[] checker = {"Fajr", "Asr", "Zhur","Maghrib", "Isha"};
+
         ArrayList<String> checker = new ArrayList<String>();
         checker.add("Fajr");
         checker.add("Zhur");
@@ -63,8 +66,7 @@ public class AthanNotifier {
         checker.add("Maghrib");
         checker.add("Isha");
 
-//            Elements links2 = doc.select("td.even");
-//            Elements links3 = doc.select("tr.even");
+        while(true){
         //since I declared all links as an array, I select the entire array
         for (int i = 0; i < allLinks.length; i++) {
             links = doc.select(allLinks[i]);
@@ -77,79 +79,80 @@ public class AthanNotifier {
                 //iff first character is not a letter.
                 if (uptill > 0 && !Character.isLetter(text.charAt(0))) {
                     deal = text.substring(0, uptill);
-//                   int number = Integer.parseInt(text);
 
-//                     System.out.println(text);
                     times.add(text);
 
-                } else {
-//                     System.out.println(text);
-
                 }
 
-                if (checker.contains(deal)) {
-//                    System.out.println("What");
-
-                }
-
-//                int x = Integer.parseInt(text);
-//                System.out.println(x);
-//                System.out.println(text);
             }
         }
 
-//            System.out.println(links2.text());
-//            System.out.println(links3.text());
         Elements text = doc.select(allLinks[allLinks.length - 1]);
 
         StringBuilder test = new StringBuilder(text.text());
         int uptill = test.indexOf(" ");
         test.delete(0, uptill + 1);
-//        System.out.println(test);
+
         test.delete(0, test.indexOf("PM") + 3);
         //convert to word and add
         times.add(test.toString());
 
         //since as for loop progresses it updates the size .
         int fixedPos = times.size();
-        
+
         //remove odd ones out that we do not need (only mosque needs)
-      
-        
-  
-         
-            for (int i = 0; i < times.size(); i++) {
-              
-            if(i%2 == 1){
-                times.set(i, "0");
-            }
-            
-        }
-        
-            //removes them
-           for (int i = 0; i < times.size(); i++) {
-            times.remove("0");
-        }
-        
-//       times.remove(3);
-//       times.remove(times.size()-1);
-        
         for (int i = 0; i < times.size(); i++) {
 
-//            System.out.println(times.get(i));
-            String convert = timeConverter(times.get(i));
-            closestTime.add(Integer.parseInt(""+convert.charAt(0)));
-            System.out.println(closestTime.get(i));
-
-            String answer = timeCalculator(currentTime, convert);
-            
-            
+            if (i % 2 == 1) {
+                times.set(i, "0");
+            }
 
         }
+
+        //removes them
+        for (int i = 0; i < times.size(); i++) {
+            times.remove("0");
+        }
+
+        for (int i = 0; i < times.size(); i++) {
+
+            String convert = timeConverter(times.get(i));
+
+            String answer = run.timeCalculator(currentTime, convert, closestTime);
+
+            realTimes.add(answer);
+
+        }
+
+        Collections.sort(closestTime);
+        for (int i = 0; i < closestTime.size(); i++) {
+            if (closestTime.get(i) < 0) {
+
+                //updates latest spot of when it is 25
+                marker = i;
+            }
+
+        }
+
+        for (int i = 0; i <= marker; i++) {
+            closestTime.remove(0);
+
+        }
+
+        for (int i = 0; i < realTimes.size(); i++) {
+            int upuntill = realTimes.get(i).indexOf(" ");
+
+            if (closestTime.get(0) == Integer.parseInt(realTimes.get(i).substring(0, upuntill))) {
+
+                Thread.sleep(1000);
+                System.out.println("The next prayer is in " + realTimes.get(i));
+            }
+        }
+}
 
     }
 
-    public static String timeCalculator(String currentTime, String athanTime) throws ParseException {
+    public String timeCalculator(String currentTime, String athanTime, ArrayList<Integer> closestTime) throws ParseException {
 
         String time1 = "16:00:50";
         String time2 = "19:00:00";
@@ -169,6 +172,9 @@ public class AthanNotifier {
         System.out.println("");
 
         String timeLeft = diffHours + " hours, " + diffMinutes + " minutes, " + diffSeconds + " seconds.";
+
+//        System.out.println("What is this " + (int)diffHours);
+        closestTime.add((int) diffHours);
 
         return timeLeft;
 
