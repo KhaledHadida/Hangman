@@ -42,6 +42,7 @@ public class AthanNotifier {
         String deal = null;
         
 
+        
         //Access calender
         Calendar cal = Calendar.getInstance();
         //sets format (Hours, minutes, seconds)
@@ -52,7 +53,7 @@ public class AthanNotifier {
 
         String converter = body.text();
         ArrayList<String> times = new ArrayList<String>();
-        Set<String> athanTimes = new HashSet<String>();
+        ArrayList<Integer> closestTime = new ArrayList<Integer>();
         String[] allLinks = {"td.odd", "td.even", "tr.even"};
 //            String[] checker = {"Fajr", "Asr", "Zhur","Maghrib", "Isha"};
         ArrayList<String> checker = new ArrayList<String>();
@@ -135,10 +136,14 @@ public class AthanNotifier {
         
         for (int i = 0; i < times.size(); i++) {
 
-            System.out.println(times.get(i));
+//            System.out.println(times.get(i));
             String convert = timeConverter(times.get(i));
+            closestTime.add(Integer.parseInt(""+convert.charAt(0)));
+            System.out.println(closestTime.get(i));
 
             String answer = timeCalculator(currentTime, convert);
+            
+            
 
         }
 
@@ -161,6 +166,7 @@ public class AthanNotifier {
         System.out.print(diffHours + " hours, ");
         System.out.print(diffMinutes + " minutes, ");
         System.out.print(diffSeconds + " seconds.");
+        System.out.println("");
 
         String timeLeft = diffHours + " hours, " + diffMinutes + " minutes, " + diffSeconds + " seconds.";
 
@@ -172,7 +178,7 @@ public class AthanNotifier {
         SimpleDateFormat displayFormat = new SimpleDateFormat("HH:mm");
         SimpleDateFormat parseFormat = new SimpleDateFormat("hh:mm a");
         Date date = parseFormat.parse(time);
-        System.out.println(parseFormat.format(date) + " = " + displayFormat.format(date));
+//        System.out.println(parseFormat.format(date) + " = " + displayFormat.format(date));
 //       int timeConverted = Integer.parseInt(displayFormat.format(date));
 
         return displayFormat.format(date);
