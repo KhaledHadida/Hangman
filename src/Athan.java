@@ -267,10 +267,11 @@ public class Athan extends javax.swing.JFrame {
         String timeLeft = diffHours + " hours, " + diffMinutes + " minutes, " + diffSeconds + " seconds.";
 
         
-           System.out.println("My dreaming ends " + (int)diffHours);
+//           System.out.println("My dreaming ends " + (int)diffHours);
         closestTime.add((int) diffHours);
         
-      
+
+       
 
         return timeLeft;
 
