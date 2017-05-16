@@ -87,6 +87,7 @@ public class Athan extends javax.swing.JFrame {
     private void textpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textpaneMouseClicked
         // TODO add your handling code here:
          textpane.setText(timer);
+         
     }//GEN-LAST:event_textpaneMouseClicked
 
     /**
@@ -122,10 +123,10 @@ public class Athan extends javax.swing.JFrame {
         Calendar cal = Calendar.getInstance();
         //sets format (Hours, minutes, seconds)
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-//        System.out.println("Time right now  " + sdf.format(cal.getTime()));
+
 
         String currentTime = sdf.format(cal.getTime());
-//            System.out.println(currentTime);
+
 
         String converter = body.text();
         ArrayList<String> times = new ArrayList<String>();
@@ -194,11 +195,12 @@ public class Athan extends javax.swing.JFrame {
         for (int i = 0; i < times.size(); i++) {
 
             String convert = timeConverter(times.get(i));
+            System.out.println(times.get(i));
 
 //            Thread.sleep(1500);
             String answer = timeCalculator(currentTime, convert, closestTime);
 
-            System.out.println(answer);
+//            System.out.println(answer);
             realTimes.add(answer);
 
         }
@@ -222,10 +224,10 @@ public class Athan extends javax.swing.JFrame {
         }
 
         
-            System.out.println("Sorted . .. . . . .. ");
+//            System.out.println("Sorted . .. . . . .. ");
 
             for (int i = 0; i < closestTime.size(); i++) {
-                System.out.println(closestTime.get(i));
+//                System.out.println(closestTime.get(i));
             }
         
         
