@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -31,7 +33,7 @@ public class Athan extends javax.swing.JFrame {
         initComponents();
     }
 
-    private String timer;
+    private static String timer;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,62 +43,74 @@ public class Athan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        textpane = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        text = new javax.swing.JTextArea();
+        button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        textpane.setEditable(false);
-        textpane.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                textpaneMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(textpane);
-
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 11)); // NOI18N
         jLabel1.setText("Times Until Next Athan");
+
+        text.setEditable(false);
+        text.setColumns(20);
+        text.setRows(5);
+        jScrollPane1.setViewportView(text);
+
+        button.setText("Get next Prayer");
+        button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(94, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(button))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+                .addContainerGap(62, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(button)
+                .addGap(49, 49, 49))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textpaneMouseClicked
+    private void buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonActionPerformed
         // TODO add your handling code here:
-         textpane.setText(timer);
-         
-    }//GEN-LAST:event_textpaneMouseClicked
+        
+        text.setText(timer);
+        
+        
+        
+    }//GEN-LAST:event_buttonActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) throws IOException, ParseException, InterruptedException {
-        /* Set the Nimbus look and feel */
-        
-          /* Create and display the form */
+      
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Athan().setVisible(true);
@@ -105,7 +119,7 @@ public class Athan extends javax.swing.JFrame {
                 
             }
         });
-        while(true){
+       
                Document doc = null;
         AthanNotifier run = new AthanNotifier();
 
@@ -238,13 +252,13 @@ public class Athan extends javax.swing.JFrame {
 
 //                Thread.sleep(1000);
                 System.out.println("The next prayer is in " + realTimes.get(i));
-                 
+                 timer = realTimes.get(i);
                
                
             }
         }
 }
-    }
+    
         
         
 
@@ -294,8 +308,9 @@ public class Athan extends javax.swing.JFrame {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton button;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextPane textpane;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea text;
     // End of variables declaration//GEN-END:variables
 }
